@@ -1,7 +1,11 @@
 use bevy::{
     prelude::*,
+    sprite::collide_aabb::{collide, Collision},
     time::FixedTimestep,
 };
+
+mod wall;
+use wall::{WallBundle, WallLocation};
 
 // Defines the amount of time that should elapse between each physics step.
 const TIME_STEP: f32 = 1.0 / 60.0;
@@ -23,7 +27,7 @@ struct Velocity(Vec2);
 
 #[derive(Component)]
 
-struct Collider;
+pub struct Collider;
 
 #[derive(Default)]
 struct CollisionEvent;
@@ -65,6 +69,12 @@ fn setup(mut commands: Commands) {
             ..default()
         })
         .insert(Velocity(INITIAL_BALL_DIRECTION.normalize() * BALL_SPEED));
+   // Walls
+   commands.spawn_bundle(WallBundle::new(WallLocation::Left));
+   commands.spawn_bundle(WallBundle::new(WallLocation::Right));
+   commands.spawn_bundle(WallBundle::new(WallLocation::Bottom));
+   commands.spawn_bundle(WallBundle::new(WallLocation::Top));
+
 }
 
 fn check_for_collisions(
