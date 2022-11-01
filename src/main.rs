@@ -15,7 +15,7 @@ const BALL_STARTING_POSITION: Vec3 = Vec3::new(0.0, -50.0, 1.0);
 const BALL_SIZE: Vec3 = Vec3::new(30.0, 30.0, 0.0);
 const BALL_SPEED: f32 = 400.0;
 const INITIAL_BALL1_DIRECTION: Vec2 = Vec2::new(0.5, -0.5);
-const INITIAL_BALL2_DIRECTION: Vec2 = Vec2::new(0.25, -0.5);
+const _INITIAL_BALL2_DIRECTION: Vec2 = Vec2::new(0.25, -0.5);
 
 const BACKGROUND_COLOR: Color = Color::rgb(0.9, 0.9, 0.9);
 const BALL_COLOR: Color = Color::rgb(1.0, 0.5, 0.5);
@@ -70,22 +70,6 @@ fn setup(mut commands: Commands) {
             ..default()
         })
         .insert(Velocity(INITIAL_BALL1_DIRECTION.normalize() * BALL_SPEED));
-    commands
-        .spawn()
-        .insert(Ball)
-        .insert_bundle(SpriteBundle {
-            transform: Transform {
-                scale: BALL_SIZE,
-                translation: BALL_STARTING_POSITION,
-                ..default()
-            },
-            sprite: Sprite {
-                color: BALL_COLOR,
-                ..default()
-            },
-            ..default()
-        })
-        .insert(Velocity(INITIAL_BALL2_DIRECTION.normalize() * BALL_SPEED));
     // Walls
     commands.spawn_bundle(WallBundle::new(WallLocation::Left));
     commands.spawn_bundle(WallBundle::new(WallLocation::Right));
